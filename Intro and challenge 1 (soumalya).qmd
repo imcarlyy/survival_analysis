@@ -8,17 +8,9 @@ editor: visual
 # **Survival Analysis**
 
 **What is Survival Analysis?**\
-Survival analysis is a collection of statistical procedures for data analysis where the outcome variable of interest is time until an event occurs
+Survival analysis is a collection of statistical procedures for data analysis where the outcome variable of interest is time until an event occurs. Basically it used to analyze time to event data. It helps answer questions like: How long will a cancer patient survive under a new drug treatment? or how long will this wind turbine last under a class 5 cyclone? It can also answer (if you want to ask more generally), what factors influence the time until an event occurs?
 
-Survival analysis is a statistical method used to analyze **time-to-event** data. It helps answer questions like:
-
--   How long do patients survive after a treatment?
-
--   When do machines fail under different conditions?
-
--   What factors influence the time until an event occurs?
-
-Survival analysis focuses on **time-to-event** data, where *Survival Time* refers to the duration until an event occurs (such as death in medical studies or machine failure in engineering). *Censoring* happens when the event isn't observed—for example, if a patient leaves a study before completion or the study ends before all events occur. The *Kaplan-Meier Curve* visually represents how survival probability changes over time, helping compare groups (like treatment vs. control). The *Hazard Ratio* quantifies relative risk between groups, indicating whether one group experiences the event faster (e.g., a ratio \>1 means higher risk, while \<1 suggests protection). Together, these concepts enable researchers to analyze event timing, handle incomplete data, and assess risk differences statistically.
+Survival analysis focuses on time to event data, where *Survival Time* refers to the duration until an event occurs (such as death in medical studies or machine failure in engineering). *Censoring* happens when the event isn't observed for example, if a patient leaves a study before completion or the study ends before all events occur. The *Kaplan-Meier Curve* visually represents how survival probability changes over time, helping compare groups (like treatment vs. control). The *Hazard Ratio* quantifies relative risk between groups, indicating whether one group experiences the event faster (e.g., a ratio \>1 means higher risk, while \<1 suggests protection). Together, these concepts enable researchers to analyze event timing, handle incomplete data, and assess risk differences statistically.
 
 ## Challenge 1
 

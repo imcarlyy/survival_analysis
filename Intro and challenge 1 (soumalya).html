@@ -106,13 +106,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="survival-analysis" class="level1">
 <h1><strong>Survival Analysis</strong></h1>
 <p><strong>What is Survival Analysis?</strong><br>
-Survival analysis is a statistical method used to analyze <strong>time-to-event</strong> data. It helps answer questions like:</p>
-<ul>
-<li><p>How long do patients survive after a treatment?</p></li>
-<li><p>When do machines fail under different conditions?</p></li>
-<li><p>What factors influence the time until an event occurs?</p></li>
-</ul>
-<p>Survival analysis focuses on <strong>time-to-event</strong> data, where <em>Survival Time</em> refers to the duration until an event occurs (such as death in medical studies or machine failure in engineering). <em>Censoring</em> happens when the event isn’t observed—for example, if a patient leaves a study before completion or the study ends before all events occur. The <em>Kaplan-Meier Curve</em> visually represents how survival probability changes over time, helping compare groups (like treatment vs.&nbsp;control). The <em>Hazard Ratio</em> quantifies relative risk between groups, indicating whether one group experiences the event faster (e.g., a ratio &gt;1 means higher risk, while &lt;1 suggests protection). Together, these concepts enable researchers to analyze event timing, handle incomplete data, and assess risk differences statistically.</p>
+Survival analysis is a collection of statistical procedures for data analysis where the outcome variable of interest is time until an event occurs. Basically it used to analyze time to event data. It helps answer questions like: How long will a cancer patient survive under a new drug treatment? or how long will this wind turbine last under a class 5 cyclone? It can also answer (if you want to ask more generally), what factors influence the time until an event occurs?</p>
+<p>Survival analysis focuses on time to event data, where <em>Survival Time</em> refers to the duration until an event occurs (such as death in medical studies or machine failure in engineering). <em>Censoring</em> happens when the event isn’t observed for example, if a patient leaves a study before completion or the study ends before all events occur. The <em>Kaplan-Meier Curve</em> visually represents how survival probability changes over time, helping compare groups (like treatment vs.&nbsp;control). The <em>Hazard Ratio</em> quantifies relative risk between groups, indicating whether one group experiences the event faster (e.g., a ratio &gt;1 means higher risk, while &lt;1 suggests protection). Together, these concepts enable researchers to analyze event timing, handle incomplete data, and assess risk differences statistically.</p>
 <section id="challenge-1" class="level2">
 <h2 class="anchored" data-anchor-id="challenge-1">Challenge 1</h2>
 <section id="objective-of-challenge-1" class="level3">
@@ -170,20 +165,20 @@ Attaching package: 'survminer'</code></pre>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>km_plot <span class="ot">&lt;-</span> <span class="fu">ggsurvplot</span>(</span>
 <span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  km_sex,</span>
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> lung_clean,</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">pval =</span> <span class="cn">TRUE</span>,                     <span class="co"># Add log-rank test p-value</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">pval.method =</span> <span class="cn">TRUE</span>,              <span class="co"># Add test method annotation</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span>,                 <span class="co"># Show confidence intervals</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">risk.table =</span> <span class="cn">TRUE</span>,               <span class="co"># Add risk table</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">risk.table.height =</span> <span class="fl">0.25</span>,        <span class="co"># Adjust risk table size</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">surv.median.line =</span> <span class="st">"hv"</span>,         <span class="co"># Add median survival lines</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>(),       <span class="co"># Clean theme</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#E7B800"</span>, <span class="st">"#2E9FDF"</span>),  <span class="co"># Custom colors</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">pval =</span> <span class="cn">TRUE</span>, <span class="co"># Add log-rank test p-value</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">pval.method =</span> <span class="cn">TRUE</span>, <span class="co"># Add test method annotation</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="co"># Show confidence intervals</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">risk.table =</span> <span class="cn">TRUE</span>, <span class="co"># Add risk table</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">risk.table.height =</span> <span class="fl">0.25</span>, <span class="co"># Adjust risk table size</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">surv.median.line =</span> <span class="st">"hv"</span>, <span class="co"># Add median survival lines</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>(), <span class="co"># Clean theme</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#E7B800"</span>, <span class="st">"#2E9FDF"</span>), <span class="co"># Custom colors</span></span>
 <span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Kaplan-Meier Survival Analysis by Sex"</span>,</span>
 <span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Time (Days)"</span>,</span>
 <span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Survival Probability"</span>,</span>
 <span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="st">"Sex"</span>,</span>
 <span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.labs =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>),</span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">break.time.by =</span> <span class="dv">100</span>              <span class="co"># X-axis breaks every 100 days</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">break.time.by =</span> <span class="dv">100</span> <span class="co"># X-axis breaks every 100 days</span></span>
 <span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in geom_segment(aes(x = 0, y = max(y2), xend = max(x1), yend = max(y2)), : All aesthetics have length 1, but the data has 2 rows.
@@ -213,11 +208,9 @@ All aesthetics have length 1, but the data has 2 rows.
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hazard Ratio Calculation </span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit Cox proportional hazards model to get hazard ratio</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>cox_model <span class="ot">&lt;-</span> <span class="fu">coxph</span>(surv_obj <span class="sc">~</span> sex, <span class="at">data =</span> lung_clean)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Display model summary with hazard ratio</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cox_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cox_model <span class="ot">&lt;-</span> <span class="fu">coxph</span>(surv_obj <span class="sc">~</span> sex, <span class="at">data =</span> lung_clean) <span class="co"># Fit Cox proportional hazards model to get hazard ratio</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cox_model) <span class="co"># Display model summary with hazard ratio</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
 coxph(formula = surv_obj ~ sex, data = lung_clean)
@@ -237,9 +230,8 @@ Likelihood ratio test= 6.25  on 1 df,   p=0.01
 Wald test            = 5.94  on 1 df,   p=0.01
 Score (logrank) test = 6.05  on 1 df,   p=0.01</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forest plot of hazard ratio</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggforest</span>(cox_model, <span class="at">data =</span> lung_clean, </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">"Hazard Ratio for Sex (Male vs Female)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggforest</span>(cox_model, <span class="at">data =</span> lung_clean, </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">"Hazard Ratio for Sex (Male vs Female)"</span>) <span class="co"># Forest plot of hazard ratio</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
