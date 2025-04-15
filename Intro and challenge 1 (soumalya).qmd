@@ -1,0 +1,102 @@
+---
+title: "Survival Analysis intro part"
+author: "Soumalya"
+format: html
+editor: visual
+---
+
+# **Survival Analysis**
+
+**What is Survival Analysis?**\
+Survival analysis is a statistical method used to analyze **time-to-event** data. It helps answer questions like:
+
+-   How long do patients survive after a treatment?
+
+-   When do machines fail under different conditions?
+
+-   What factors influence the time until an event occurs?
+
+Survival analysis focuses on **time-to-event** data, where *Survival Time* refers to the duration until an event occurs (such as death in medical studies or machine failure in engineering). *Censoring* happens when the event isn't observed—for example, if a patient leaves a study before completion or the study ends before all events occur. The *Kaplan-Meier Curve* visually represents how survival probability changes over time, helping compare groups (like treatment vs. control). The *Hazard Ratio* quantifies relative risk between groups, indicating whether one group experiences the event faster (e.g., a ratio \>1 means higher risk, while \<1 suggests protection). Together, these concepts enable researchers to analyze event timing, handle incomplete data, and assess risk differences statistically.
+
+## Challenge 1
+
+### Objective of Challenge 1:
+
+The primary objectives of this analysis are threefold: first, to **estimate survival probabilities** over time using the Kaplan-Meier method, which calculates the likelihood of an event (such as death or failure) occurring at different time points while accounting for censored data. Second, to **compare survival outcomes between two distinct groups** (e.g., males vs. females, treated vs. untreated), visualizing differences through stratified Kaplan-Meier curves. Third, to **determine whether observed survival differences are statistically significant** using the log-rank test, which evaluates whether the survival distributions between groups diverge meaningfully (p-value \< 0.05 indicates significance). Together, these steps provide a robust framework to quantify and compare time-to-event outcomes in clinical, engineering, or social science research.
+
+```{r}
+# Load required packages
+library(survival)
+library(survminer)
+library(ggplot2)
+
+# Load the lung dataset from survival package
+data(lung)
+
+# Data Preparation 
+# Recode status (2=death to 1, 1=censored to 0)
+# Convert sex to a factor with labels
+lung_clean <- lung %>%
+  mutate(
+    status = ifelse(status == 2, 1, 0),  # Event indicator
+    sex = factor(sex, levels = 1:2, labels = c("Male", "Female")),
+    ph.ecog = factor(ph.ecog)  # Performance status (0-4 scale)
+  ) %>%
+  na.omit()  # Remove missing values
+
+# Kaplan-Meier Analysis 
+# Create survival object
+surv_obj <- Surv(time = lung_clean$time, event = lung_clean$status)
+
+# 1. Overall survival curve
+km_overall <- survfit(surv_obj ~ 1, data = lung_clean)
+
+# 2. Survival by sex (group comparison)
+km_sex <- survfit(surv_obj ~ sex, data = lung_clean)
+
+# Kaplan-Meier Plot 
+# Customized plot with risk table
+km_plot <- ggsurvplot(
+  km_sex,
+  data = lung_clean,
+  pval = TRUE,                     # Add log-rank test p-value
+  pval.method = TRUE,              # Add test method annotation
+  conf.int = TRUE,                 # Show confidence intervals
+  risk.table = TRUE,               # Add risk table
+  risk.table.height = 0.25,        # Adjust risk table size
+  surv.median.line = "hv",         # Add median survival lines
+  ggtheme = theme_minimal(),       # Clean theme
+  palette = c("#E7B800", "#2E9FDF"),  # Custom colors
+  title = "Kaplan-Meier Survival Analysis by Sex",
+  xlab = "Time (Days)",
+  ylab = "Survival Probability",
+  legend.title = "Sex",
+  legend.labs = c("Male", "Female"),
+  break.time.by = 100              # X-axis breaks every 100 days
+)
+
+# Print the plot
+print(km_plot)
+
+# Hazard Ratio Calculation 
+# Fit Cox proportional hazards model to get hazard ratio
+cox_model <- coxph(surv_obj ~ sex, data = lung_clean)
+
+# Display model summary with hazard ratio
+summary(cox_model)
+
+# Forest plot of hazard ratio
+ggforest(cox_model, data = lung_clean, 
+         main = "Hazard Ratio for Sex (Male vs Female)")
+
+# Log-Rank Test 
+# Formal comparison of survival curves
+survdiff(surv_obj ~ sex, data = lung_clean)
+
+# Survival Statistics 
+# Median survival with confidence intervals
+summary(km_sex)$table
+
+# Survival probabilities at specific time points (6, 12, 24 months)
+summary(km_sex, times = c(180, 365, 730))
+```
