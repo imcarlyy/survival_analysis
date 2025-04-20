@@ -103,16 +103,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="challenge-1" class="level1">
+<h1>Challenge 1</h1>
+</section>
 <section id="fitting-the-kaplan-meier-survival-model" class="level1">
-<h1>Fitting the Kaplan Meier Survival Model</h1>
-<p>For this challenge, we will start with a basic dataset of twelve Cancer patients in a study who have survived after diagnosis.</p>
+<h1>Fitting the Kaplan-Meier Survival Model</h1>
+<p>For this challenge, we will start with a basic dataset of twelve Colon cancer patients in a study who have survived after diagnosis.</p>
 <p>We will now read the dataset (Csurv) which I prepared specially for this challenge:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org"</span>) <span class="co">#Installing this package for reading excel files</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 The downloaded binary packages are in
-    /var/folders/60/68vp42lj44zgqcjt5rg9trf00000gn/T//RtmpXNXud7/downloaded_packages</code></pre>
+    /var/folders/60/68vp42lj44zgqcjt5rg9trf00000gn/T//RtmpJi2oYw/downloaded_packages</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># Loading the package</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>

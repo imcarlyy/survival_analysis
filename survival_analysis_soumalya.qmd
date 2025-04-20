@@ -5,9 +5,11 @@ format: html
 editor: visual
 ---
 
-# Fitting the Kaplan Meier Survival Model
+# Challenge 1
 
-For this challenge, we will start with a basic dataset of twelve Cancer patients in a study who have survived after diagnosis.
+# Fitting the Kaplan-Meier Survival Model
+
+For this challenge, we will start with a basic dataset of twelve Colon cancer patients in a study who have survived after diagnosis.
 
 We will now read the dataset (Csurv) which I prepared specially for this challenge:
 
