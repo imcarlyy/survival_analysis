@@ -1,5 +1,5 @@
 ---
-title: "Survival Analysis intro part"
+title: "Survival Analysis Challenge 1"
 author: "Soumalya"
 format: html
 editor: visual
