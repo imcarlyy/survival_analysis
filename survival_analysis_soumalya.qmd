@@ -9,16 +9,20 @@ editor: visual
 
 # Fitting the Kaplan-Meier Survival Model
 
+The **Kaplan–Meier estimator**, also known as the **product limit estimator**, is a non-parametric statistic used to estimate the survival function from lifetime data. In medical research, it is often used to measure the fraction of patients living for a certain amount of time after treatment. In other fields, Kaplan–Meier estimators may be used to measure the length of time people remain unemployed after a job loss, the time-to-failure of machine parts, or in our case, the amount of time a patient survived after being diagnosed for a disease.
+
 For this challenge, we will start with a basic dataset of twelve Colon cancer patients in a study who have survived after diagnosis.
 
 We will now read the dataset (Csurv) which I prepared specially for this challenge:
 
 ```{r}
-install.packages("readxl", repos = "https://cloud.r-project.org") #Installing this package for reading excel files
+library(readxl)
 
-library(readxl) # Loading the package
-
-Csurv <- read_excel("/Users/soumalyaghorui/AN 588/Survival Analysis (Group Project)/survival_analysis/Csurv.xlsx") # Reading the Excel file
+github_url <- "https://raw.githubusercontent.com/imcarlyy/survival_analysis/main/Csurv.xlsx"
+temp_file <- tempfile(fileext = ".xlsx")  # Create a temporary file
+download.file(github_url, temp_file, mode = "wb")  # 'wb' for binary (Excel files)
+Csurv <- read_excel(temp_file)  # Read the downloaded file
+unlink(temp_file)  # Delete the temporary file
 ```
 
 Now I will check the names of the variables given in this table.
@@ -78,6 +82,8 @@ Now we can ask R to make a plot of this model. To do that we can ask R to plot t
 plot(km.model, conf.int=F, xlab="Time (months)",ylab="%Alive = S(t)", main="K-M Model")
 ```
 
+As we can see, a plot of the Kaplan–Meier is a series of declining horizontal steps.
+
 Now if we wanted to we can ask R to put confidence interval or confidence bands around this survival function. To do so we would just set conf.int=T (or True). I will also set las=1 (this will rotate the values on the y-axis. So, here's what it will look like:
 
 ```{r}
@@ -106,13 +112,14 @@ This helps us visualize where and when observations are censored.
 Now, let's include a x variable into fitting this model. I will continue on the same cancer patient dataset (those 12 individuals were all under 40 years old) and will add in more data points and this is going to be a group of individuals who are over 40 years old (another column Over40 will be added)
 
 ```{r}
-detach(Csurv)
 rm(Csurv)
+library(readxl)
 
-library(readxl) # Loading the package
-
-#and then read in the CsurvO40 dataset
-Csurv40 <- read_excel("/Users/soumalyaghorui/AN 588/Survival Analysis (Group Project)/survival_analysis/Csurv40.xlsx")
+github_url2 <- "https://raw.githubusercontent.com/imcarlyy/survival_analysis/main/Csurv40.xlsx"
+temp_file2 <- tempfile(fileext = ".xlsx")  # Creates a temporary file path
+download.file(github_url2, temp_file2, mode = "wb")  # Saves to temp_file2 (not temp_file)
+Csurv40 <- read_excel(temp_file2)  # Reads from temp_file2
+unlink(temp_file2)  # Deletes temp_file2
 ```
 
 Taking a quick look at the new table:
@@ -163,7 +170,7 @@ An important question:
 
 Are two survival functions are statistically significantly different? Or do you think that the survival differs if someone is over or under 40?
 
-YES! Survival (Probabilty of surviving beyond a certain time) changes depending on if someone's over or under 40. Here I will talk about the formal test for doing this.
+YES! Survival (Probability of surviving beyond a certain time) changes depending on if someone's over or under 40. Here I will talk about the formal test for doing this.
 
 Here comes the **Log-Rank Test**: It is a way of testing if there is a significant difference between the two survival curve. It is also known as the Mantle Hansel test.
 
