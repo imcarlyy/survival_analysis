@@ -11,7 +11,6 @@ output:
 date: "2025-04-20"
 ---
 
-```{r}
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 options(repos = c(CRAN = "https://cloud.r-project.org"))
@@ -292,27 +291,25 @@ Test-statistic is 4.8, the p-value is 0.03. Based on this small p-value, we can 
 library(survival)
 library(survminer)
 library(ggplot2)
-```
-```{r}
-data(cancer)
-head(cancer)
-```
-
-```{r}
-sv1 <- survfit(Surv(time, status) ~ 1, data = lung)
-sv1
-```
-```{r}
-ggsurvplot(sv1)
-```
-```{r}
 library(tidyr)
+library(dplyr)
 ```
 
 Let's say you want to assess the role of different variables in your data in survival times. There are many models and methods to do so but the most common is to use the Cox Proportional Hazard model. First introduced in 1972, this model allows you to assess the hazard at a certain time given a specific covariate. In math terms, under the cox model our hazard function is:
 
 ![](cox_hazard_function.png)
-Where the hazard at time t given your covariate X is equal to your baseline hazard function (with all covariates equal to 0), multiplied by your exponential function exp(BX), a multiplicative way of assessing the covariates influence on overall hazard.
+Where the hazard at time t given your covariate X is equal to your baseline hazard function (with all covariates equal to 0), multiplied by your exponential function exp(BX), a multiplicative way of assessing the covariates influence on overall hazard. 
+
+Let's load in our datasets.
+```{r}
+data(cancer)
+```
+
+As before we'll make a survival object based on some of our data. In this case let's use the lung cancer survival dataset:
+
+```{r}
+sv1 <- survfit(Surv(time, status) ~ 1, data = lung)
+```
 
 The Survival package makes fitting a CPH model to your data very easy, with just the coxph function. Say we wanted to fit a Cox regression based on age to our cancer mortality data:
 
@@ -356,18 +353,45 @@ cox.zph(cx_sex)
 cx_sex
 ```
 
+Curiously, sex is showing a strong negative coefficient, indicating that it's having a strong protective effect (i.e. females are surviving longer than males in this dataset), and our p-value for that is 0.002, which is significant by most metrics! That said, if we look at the cox proportional hazard assumption test our p-value associated with sex is pretty low, at 0.11. This is a little concerning, since while we're still technically above an alpha threshold of 0.05, we might be concerned that our sex covariate is violating the proportional hazard assumption. What do our survival curves look like?
+
 ```{r}
 ggsurvplot(
-  survfit(Surv(time, status) ~ sex, data = cancer),
+  survfit(Surv(time, status) ~ sex, data = lung),
   legend.labs = c("Male", "Female"),
   palette = c("purple","forestgreen"),
   conf.int = T
   )
 ```
 
+Hmm, our survival plots seem to be drawing together towards the end of the timeframe we're looking at. Perhaps that accounts for the low p-value in our proportional hazard test. What happens if we remove the individuals near the ends of the curves? 
+
+```{r}
+lung_short <- lung %>% 
+  filter(
+    time < 700
+  ) %>% 
+  filter(
+    time > 50
+  )
+cx_sex2 <- coxph(Surv(time, status) ~ sex + age, data = lung_short)
+cox.zph(cx_sex2)
+```
+
+```{r}
+ggsurvplot(
+  survfit(Surv(time, status) ~ sex, data = lung_short),
+  legend.labs = c("Male", "Female"),
+  palette = c("purple","forestgreen"),
+  conf.int = T
+  )
+```
+
+Ahh, interesting! If we omit the mortality events that occurred very early and very late in our time series data, the proportional hazard due to our sex variable becomes a lot more constant. Interestingly doing this also seems to drop our age p-value, but both are now far above what we would consider a significant violation of the proportional hazard assumption.
+
 ## Challenge 3
 
-Now let's try what we've learned with some other data sets. Have a look at the colon dataset provided by the survival package. This is a survival dataset for patients with colon cancer in a chemotherapy treatment trial, with the "rx" column indicating what treatment the patients received. Does the rx covariate violate the proportional hazard assumption? What do the kaplan meier curves look like for this data when we segregate based on treatment? Does the chemotherapy seem to work?
+Now let's try what we've learned with some other data sets. Have a look at the colon dataset provided by the survival package. This is a survival dataset for patients with colon cancer in a chemotherapy treatment trial, with the "rx" column indicating what treatment the patients received (either "Obs" for observation only, "rxLev" for treatment with just levamisole, or "rxLev + 5FU" for levamisole & the chemotherapy agent 5-FU). Does the rx covariate violate the proportional hazard assumption? What do the survival curves look like for this data when we segregate based on treatment? Does the chemotherapy seem to work?
 
 ```{r}
 head(colon)
@@ -396,6 +420,7 @@ ggsurvplot(
   pval.method = T
   )
 ```
+
 ## Challenge 4 (TIFFANY'S PART)
 
 One of the most common test in survival analysis is a nonparametric test known as **log-rank test,** which compares survival curves under the assumption of **proportional hazards**. It tests whether there is a **statistically significant difference** in survival between groups over time.
