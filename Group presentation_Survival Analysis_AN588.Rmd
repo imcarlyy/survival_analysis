@@ -146,8 +146,7 @@ from the `survival` package in R, including:\
 - **Cox Proportional Hazards Model**\
 - **Time-Varying Covariates**\
 - **Group comparison**\
-- **evaluating average survival curves across different modeling
-frameworks**
+- **Visualizing Competing Risks with CRR**
 
 ## **Using R for survival analysis**
 
