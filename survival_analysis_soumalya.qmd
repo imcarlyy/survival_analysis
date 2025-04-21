@@ -16,12 +16,13 @@ For this challenge, we will start with a basic dataset of twelve Colon cancer pa
 We will now read the dataset (Csurv) which I prepared specially for this challenge:
 
 ```{r}
-install.packages("readxl", repos = "https://cloud.r-project.org") #Installing this package for reading excel files
+library(readxl)
 
-library(readxl) # Loading the package
-
-github_url <- "Csurv.xlsx" # Taking it from github
-Csurv <- read_excel(github_url)
+github_url <- "https://raw.githubusercontent.com/imcarlyy/survival_analysis/main/Csurv.xlsx"
+temp_file <- tempfile(fileext = ".xlsx")  # Create a temporary file
+download.file(github_url, temp_file, mode = "wb")  # 'wb' for binary (Excel files)
+Csurv <- read_excel(temp_file)  # Read the downloaded file
+unlink(temp_file)  # Delete the temporary file
 ```
 
 Now I will check the names of the variables given in this table.
@@ -111,11 +112,14 @@ This helps us visualize where and when observations are censored.
 Now, let's include a x variable into fitting this model. I will continue on the same cancer patient dataset (those 12 individuals were all under 40 years old) and will add in more data points and this is going to be a group of individuals who are over 40 years old (another column Over40 will be added)
 
 ```{r}
-library(readxl) # Loading the package
+rm(Csurv)
+library(readxl)
 
-#and then read in the CsurvO40 dataset
-github_url2 <- "Csurv40.xlsx"
-Csurv40 <- read_excel(github_url2)
+github_url2 <- "https://raw.githubusercontent.com/imcarlyy/survival_analysis/main/Csurv40.xlsx"
+temp_file2 <- tempfile(fileext = ".xlsx")  # Creates a temporary file path
+download.file(github_url2, temp_file2, mode = "wb")  # Saves to temp_file2 (not temp_file)
+Csurv40 <- read_excel(temp_file2)  # Reads from temp_file2
+unlink(temp_file2)  # Deletes temp_file2
 ```
 
 Taking a quick look at the new table:
