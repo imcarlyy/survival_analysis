@@ -910,7 +910,15 @@ Camilleri, L. (2019, March 24). History of survival analysis. The Sunday
 Times of Malta, p. 53. Retrieved from
 <https://www.um.edu.mt/library/oar/handle/123456789/55748>
 
+Fox J, Weisberg S. (2001). Cox Proportional Hazard Regression for Survival Data. <https://www.researchgate.net/publication/239487024_Cox_Proportional_Hazard_Regression_for_Survival_Data>
+
 Goel MK, Khanna P, Kishore J. Understanding survival analysis: Kaplan-Meier estimate. Int J Ayurveda Res. 2010 Oct;1(4):274-8. doi: 10.4103/0974-7788.76794. PMID: 21455458
+
+Mustafa A. (2024). Getting Started with the Cox Proportional Hazards Model: A Hands-On Guide in R. Medium. Retrieved from <https://medium.com/@akif.iips/getting-started-with-the-cox-proportional-hazards-model-a-hands-on-guide-in-r-291f4e85589a>
+
+Rich, J. T., Neely, J. G., Paniello, R. C., Voelker, C. C. J., Nussenbaum, B., & Wang, E. W. (2010). A practical guide to understanding Kaplan‐Meier curves. Otolaryngology–Head and Neck Surgery, 143(3), 331–336. <https://doi.org/10.1016/j.otohns.2010.05.007>
+
+Therneau, T., Crowson, C., & Atkinson, E. (2024). Using Time Dependent Covariates and Time Dependent Coefficients in the Cox Model.
 
 Vianda S. Stel, Friedo W. Dekker, Giovanni Tripepi, Carmine Zoccali, Kitty J. Jager; Survival Analysis I: The Kaplan-Meier Method. Nephron Clinical Practice 1 August 2011
 
@@ -920,3 +928,5 @@ Overview of model validation for survival regression model with
 competing risks using melanoma study data. Ann Transl Med. 2018
 Aug;6(16):325. doi: 10.21037/atm.2018.07.38. PMID: 30364028; PMCID:
 PMC6186983.
+
+Zabor E. C. (2025). Survival Analysis in R. <https://www.emilyzabor.com/survival-analysis-in-r.html>
