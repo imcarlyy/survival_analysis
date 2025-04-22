@@ -910,6 +910,10 @@ Camilleri, L. (2019, March 24). History of survival analysis. The Sunday
 Times of Malta, p. 53. Retrieved from
 <https://www.um.edu.mt/library/oar/handle/123456789/55748>
 
+Goel MK, Khanna P, Kishore J. Understanding survival analysis: Kaplan-Meier estimate. Int J Ayurveda Res. 2010 Oct;1(4):274-8. doi: 10.4103/0974-7788.76794. PMID: 21455458
+
+Vianda S. Stel, Friedo W. Dekker, Giovanni Tripepi, Carmine Zoccali, Kitty J. Jager; Survival Analysis I: The Kaplan-Meier Method. Nephron Clinical Practice 1 August 2011
+
 Zhang Z, Cortese G, Combescure C, Marshall R, Lee M, Lim HJ, Haller B;
 written on behalf of AME Big-Data Clinical Trial Collaborative Group.
 Overview of model validation for survival regression model with
